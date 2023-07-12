@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,12 +18,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    //return redirect()->route('login');
+    return redirect()->route('accueil');
 });
 
 Auth::routes(['register' => false]);
 
+
+Route::resource('articles', ArticleController::class);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/accueil', [App\Http\Controllers\SiteController::class, 'accueil'])->name('accueil');
+Route::get('/apropos', [App\Http\Controllers\SiteController::class, 'apropos'])->name('apropos');
+Route::get('/contact', [App\Http\Controllers\SiteController::class, 'contact'])->name('contact');
+Route::get('/services', [App\Http\Controllers\SiteController::class, 'services'])->name('services');
+Route::get('/article', [App\Http\Controllers\SiteController::class, 'article'])->name('article');
+Route::get('/single', [App\Http\Controllers\SiteController::class, 'single'])->name('single');
+
 
 // Profile Routes
 Route::prefix('profile')->name('profile.')->middleware('auth')->group(function(){
